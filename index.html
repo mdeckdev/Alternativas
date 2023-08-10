@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Search UI</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+
+        div {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 20px;
+            transition: all 0.3s;
+        }
+
+        label:hover {
+            color: #007BFF;
+        }
+
+        label.active {
+            font-size: 1.5em;
+            color: #007BFF;
+        }
+
+        .content {
+            display: none;
+            padding-top: 20px;
+            transition: all 0.3s;
+            border-top: 1px solid #e6e6e6;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="date"]:hover, select:hover {
+            border-color: #007BFF;
+        }
+
+        input[type="date"]:focus, select:focus {
+            border-color: #007BFF;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="radio" name="searchType" id="exactDates" checked>
+        <label for="exactDates" class="active">Fechas exactas</label>
+        <div class="content active">
+            <label for="fechaEntrada">Fecha entrada:</label>
+            <input type="date" id="fechaEntrada">
+            <br>
+            <label for="fechaSalida">Fecha salida:</label>
+            <input type="date" id="fechaSalida">
+        </div>
+    </div>
+    
+    <div>
+        <input type="radio" name="searchType" id="flexibleDates">
+        <label for="flexibleDates">Fechas Flexibles</label>
+        <div class="content">
+            <label for="fechaDesde">Fecha desde:</label>
+            <input type="date" id="fechaDesde">
+            <br>
+            <label for="fechaHasta">Fecha hasta:</label>
+            <input type="date" id="fechaHasta">
+            <br>
+            <label for="noches">Noches:</label>
+            <select id="noches">
+                <option>Fin de semana</option>
+                <option>Semana</option>
+                <option>2 Semanas</option>
+                <!-- you can expand this as needed -->
+                <option>2</option>
+                <option>3</option>
+                <!-- ... -->
+                <option>30</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        const exactDatesRadio = document.getElementById("exactDates");
+        const flexibleDatesRadio = document.getElementById("flexibleDates");
+        
+        exactDatesRadio.addEventListener("change", function() {
+            toggleActive(this, exactDatesRadio, flexibleDatesRadio);
+        });
+
+        flexibleDatesRadio.addEventListener("change", function() {
+            toggleActive(this, exactDatesRadio, flexibleDatesRadio);
+        });
+        
+        function toggleActive(radio, exactDatesRadio, flexibleDatesRadio) {
+            document.querySelector('.content.active').classList.remove('active');
+            document.querySelector('label.active').classList.remove('active');
+            if (radio === exactDatesRadio) {
+                exactDatesRadio.nextElementSibling.classList.add('active');
+                exactDatesRadio.nextElementSibling.nextElementSibling.classList.add('active');
+            } else {
+                flexibleDatesRadio.nextElementSibling.classList.add('active');
+                flexibleDatesRadio.nextElementSibling.nextElementSibling.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
